@@ -59,10 +59,10 @@ class ImportPosts extends Command
         $placeList = Place::all();
         $timeList = Time::all();
 
-        $stream = \fopen(storage_path('import_1_08_25.csv'), 'r');
+        $stream = \fopen(storage_path('import_13_08_2025.csv'), 'r');
 
         $csv = Reader::createFromStream($stream);
-        $csv->setDelimiter(';');
+        $csv->setDelimiter(',');
         $csv->setHeaderOffset(0);
         //build a statement
         $stmt = (new Statement());
@@ -81,17 +81,17 @@ class ImportPosts extends Command
         }
 
 
-        $path = '/aa1/';
+        $path = '/aa2/';
 
         shuffle($posts);
 
         $prices = array( 1500, 2000, 2500, 3000, 4000, 5000, 10000);
 
-        $cityList = City::where('id', '<>', 1)->get();
+        foreach ($posts as $record) {
 
-        foreach ($cityList as $city) {
+            $city = City::where('city', $record['City'])->first();
 
-            foreach ($posts as $record) {
+            if ($city) {
 
                 $post = new Post();
 
@@ -132,13 +132,13 @@ class ImportPosts extends Command
                 $post->contacts_per_hour = rand(1, 3);
 
                 $post->avatar = $path . $record['mini'];
-                //if ($record['video']) $post->video = $path . $record['video'];
+                if ($record['video']) $post->video = $path . $record['video'];
 
                 if ($post->save()) {
 
                     $post->url = \Str::slug($post->name) . '-' . $post->id;
 
-                    if (false and $record['metro']) {
+                    if ($record['metro']) {
 
                         $dataList = explode(',', $record['metro']);
 
@@ -269,10 +269,7 @@ class ImportPosts extends Command
 
                     echo $post->id . PHP_EOL;
 
-                    exit();
-
                 }
-
 
             }
 
