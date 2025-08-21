@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="/fonts/ubuntu/ubuntu.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/style.css?v=8">
+    <link rel="stylesheet" href="/css/style.css?v=9">
 
 
     <meta property="og:title" content="@yield('title')" />

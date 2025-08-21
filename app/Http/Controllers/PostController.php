@@ -38,7 +38,7 @@ class PostController extends Controller
 
         $viewCount = Redis::INCR('post:view:' . $post->id);
 
-        $morePosts = $this->postRepository->getMore($cityInfo['id'], 4);
+        $morePosts = $this->postRepository->getMore($cityInfo['id'], 8);
 
         $addViewToCookie->add($post->id);
 

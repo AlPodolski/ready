@@ -451,6 +451,16 @@
             </div>
         </div>
     </div>
+
+    <div class="row more-posts-wrap">
+        <div class="col-12 big-red-text">
+            Вам может понравится:
+        </div>
+        @foreach($morePosts as $post)
+            @include('new.include.item')
+        @endforeach
+    </div>
+
 @endsection
 @section('catalog')
     @include('new.include.catalog-menu')
