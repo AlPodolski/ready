@@ -148,6 +148,7 @@ body{
 }
 .fast-links{
     margin-bottom: 25px;
+    overflow-x: auto;
 }
 .big-red-text{
     color: #F74952;
