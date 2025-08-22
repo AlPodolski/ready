@@ -26,7 +26,6 @@ require __DIR__ . '/auth.php';
 Route::post('/phone', \App\Http\Controllers\PhoneController::class);
 
 Route::post('/review/add', \App\Http\Controllers\ReviewController::class);
-Route::post('/claim/add', [\App\Http\Controllers\ClaimController::class, 'index']);
 
 Route::post('/message/add', [\App\Http\Controllers\MessagesController::class, 'store']);
 
@@ -41,7 +40,6 @@ Route::post('/message/phone', [\App\Http\Controllers\MessagesController::class, 
 Route::get('/thumbnail/{size}/{filename}', 'ThumbnailController@make')
     ->where('path', '.*');;
 
-
 Route::get('/thumbnail/{size}/{path}', [ThumbnailController::class, 'make'])
     ->where('path', '.*'); // позволяет захватывать путь с подкаталогами
 
@@ -50,6 +48,8 @@ Route::get('/pay/{id}', [\App\Http\Controllers\PayController::class, 'index']);
 Route::middleware('redirect')->group(function () {
 
     Route::domain('{city}.' . SITE)->group(function () {
+
+        Route::post('/contact', [\App\Http\Controllers\ClaimController::class, 'index'])->name('contact.send');
 
         Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index']);
         Route::get('/blog/{url}', [\App\Http\Controllers\BlogController::class, 'post']);

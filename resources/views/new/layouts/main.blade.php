@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="/fonts/ubuntu/ubuntu.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/style.css?v=10">
+    <link rel="stylesheet" href="/css/style.css?v=11">
 
 
     <meta property="og:title" content="@yield('title')" />
@@ -95,6 +95,9 @@
                                 </li>
                                 <li itemprop="name">
                                     <a href="/proverennye-prostitutki" itemprop="url">Проверенные</a>
+                                </li>
+                                <li >
+                                    <a href="#" data-target="contactModal">Обратная связь</a>
                                 </li>
                             </ul>
                         </nav>
@@ -212,6 +215,21 @@
         </svg>
     </button>
 </main>
+
+<div class="modal" id="contactModal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p class="big-red-text">Обратная связь</p>
+        <form class="contact-form phone-message-form" action="/contact" method="post">
+            @csrf
+            <input type="text" class="review-input" name="name" placeholder="Ваше имя" required />
+            <input type="email" class="review-input" name="email" placeholder="Ваш email" required />
+            <textarea name="text" placeholder="Ваше сообщение" required></textarea>
+            <button type="submit" class="red-btn" >Отправить</button>
+        </form>
+    </div>
+</div>
+
 <script defer src="/js/script.js?v=3"></script>
 </body>
 </html>
