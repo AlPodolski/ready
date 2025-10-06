@@ -384,19 +384,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const targets = document.querySelectorAll(".more-posts");
     if (!targets.length) return;
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // передаём сам элемент, как ты хотел
+                // передаём конкретный блок, который пересёк видимую область
                 getMorePosts(entry.target);
-                // если нужно вызвать только один раз — снимаем наблюдение
-                observer.unobserve(entry.target);
             }
         });
     }, {
         root: null,
-        rootMargin: "150px 0px 150px 0px", // срабатывает за 150px до появления элемента
-        threshold: 0
+        threshold: 0.1 // срабатывает при 10% видимости блока
     });
 
     targets.forEach(el => observer.observe(el));
