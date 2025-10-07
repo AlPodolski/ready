@@ -58,6 +58,7 @@ Route::middleware('redirect')->group(function () {
         Route::get('/', \App\Http\Controllers\IndexController::class);
         Route::post('/', [\App\Http\Controllers\IndexController::class, 'more']);
         Route::get('/user/{url}', \App\Http\Controllers\PostController::class);
+        Route::post('/posts/more', [\App\Http\Controllers\PostController::class, 'more']);
         Route::get('/name', \App\Http\Controllers\SearchController::class);
         Route::get('/poisk', [\App\Http\Controllers\SearchController::class, 'filter']);
         Route::post('/poisk', [\App\Http\Controllers\SearchController::class, 'more']);

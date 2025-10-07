@@ -24,7 +24,7 @@
 
     <link rel="stylesheet" href="/fonts/ubuntu/ubuntu.css">
     <link rel="stylesheet" href="/css/bootstrap-grid.css">
-    <link rel="stylesheet" href="/css/style.css?v=11">
+    <link rel="stylesheet" href="/css/style.css?v=12">
 
 
     <meta property="og:title" content="@yield('title')" />
@@ -242,6 +242,6 @@
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/103669452" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
-<script defer src="/js/script.js?v=6"></script>
+<script defer src="/js/script.js?v=8"></script>
 </body>
 </html>

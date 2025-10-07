@@ -460,6 +460,9 @@
         @endforeach
     </div>
 
+    <div onclick="getMorePostsSingle(this)"
+         class="more-posts-single">Показать еще
+    </div>
 @endsection
 @section('catalog')
     @include('new.include.catalog-menu')

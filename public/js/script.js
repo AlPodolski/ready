@@ -311,6 +311,73 @@ function getMorePosts(button) {
         });
 }
 
+function getMorePostsSingle(button){
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    const url =  '/posts/more';
+
+    // Собираем ID уже показанных карточек
+    const shownIds = Array.from(document.querySelectorAll('.post-card[data-id]'))
+        .map(el => el.getAttribute('data-id'))
+        .filter(Boolean);
+
+    // UI: лоадер/блокировка
+    if (button){
+        button.classList.add('is-loading');
+        button.setAttribute('aria-busy', 'true');
+        button.style.pointerEvents = 'none';
+    }
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+            ids: shownIds // <— отправляем массив ID
+        })
+    })
+        .then(response => response.text())
+        .then((data) => {
+            // Обновляем историю (если есть что пушить)
+            if (data) {
+                document.querySelector('.more-posts-wrap')?.insertAdjacentHTML('beforeend', data);
+            }
+        })
+        .catch((err) => {
+            console.error('Ошибка при запросе:', err);
+            // можно показать сообщение/кнопку "повторить"
+            if (button) button.classList.add('is-error');
+        })
+        .finally(() => {
+            if (button){
+                button.classList.remove('is-loading');
+                button.removeAttribute('aria-busy');
+                button.style.pointerEvents = '';
+            }
+        });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const target = document.querySelector('.more-posts-single');
+    if (!target) return;
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                getMorePostsSingle(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '150px', // за 150px до появления
+        threshold: 0
+    });
+
+    observer.observe(target);
+});
+
 let lastScrollTop = window.scrollY;
 const header = document.querySelector('.bottom-header');
 

@@ -6,6 +6,7 @@ use App\Actions\AddViewToCookie;
 use App\Actions\GenerateBreadcrumbMicro;
 use App\Actions\GenerateImageMicro;
 use App\Actions\GenerateProductMicroForSingle;
+use App\Models\Post;
 use App\Services\SingleMetaService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -51,5 +52,22 @@ class PostController extends Controller
             'post', 'viewPosts', 'data', 'meta', 'breadMicro', 'imageMicro',
             'morePosts', 'productMicro', 'viewCount', 'serviceTypeInfo'
         ));
+    }
+
+    public function more($city, Request $request)
+    {
+        $ids = $request->input('ids', []);
+        $cityInfo = $this->cityRepository->getCity($city);
+
+        $posts = Post::whereNotIn('id', $ids)
+            ->where('city_id', $cityInfo->id)
+            ->where(['publication_status' => Post::POST_ON_PUBLICATION])
+            ->with('metro', 'city', 'photo', 'checkPhoto')
+            ->inRandomOrder()
+            ->limit(25)
+            ->get();
+
+        return view('new.post.more', compact('posts'));
+
     }
 }
