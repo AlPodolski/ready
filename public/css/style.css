@@ -1155,7 +1155,27 @@ body{
 .set-sort-wrap{
     margin-bottom: 25px;
 }
+#photo-with-comments{
+    padding: 20px;
+}
+.photo-with-comments-item img{
+    border-radius: 10px;
+    max-width: 50%;
+}
+.photo-with-comments-item{
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+.comments-form-wrap{
+    width: 45%;
+    margin-left: 20px;
+}
 @media (max-width: 767px) {
+    .comments-form-wrap, .photo-with-comments-item img{
+        width: 100%;
+        max-width: 100%;
+        margin-left: 0;
+    }
     .bottom-header {
         position: relative;
         width: 100%;

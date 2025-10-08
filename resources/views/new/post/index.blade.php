@@ -35,14 +35,16 @@
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/storage{{$post->avatar}}" alt="{{ $post->name }} привлекальеная девушка из {{ $post->city->city2 }} цена от {{ $post->price }} руб">
+                            <img src="/storage{{$post->avatar}}"
+                                 alt="{{ $post->name }} привлекальеная девушка из {{ $post->city->city2 }} цена от {{ $post->price }} руб">
                         </div>
 
                         @if($post->photo->first())
 
                             @foreach($post->photo as $item)
                                 <div class="swiper-slide"><img src="/storage{{ $item->file }}"
-                                                               alt="Индивидуалка {{ $post->name }}, доступна для личного знакомства от {{ $post->price }} руб"></div>
+                                                               alt="Индивидуалка {{ $post->name }}, доступна для личного знакомства от {{ $post->price }} руб">
+                                </div>
                             @endforeach
 
                         @endif
@@ -122,8 +124,10 @@
                     <div class="message-btn-wrap" data-target="message-modal">
                         <div class="yellow-btn">
                             Написать сообщение
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M22.5 2.5L2 11.2c-.5.2-.5.9 0 1.1l5.2 1.7 1.8 5.4c.2.6.9.6 1.2.1l2.5-4.1 4.7 3.5c.4.3 1 .1 1.1-.4L23.5 3.5c.1-.6-.5-1.1-1-.9z"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                 fill="currentColor">
+                                <path
+                                    d="M22.5 2.5L2 11.2c-.5.2-.5.9 0 1.1l5.2 1.7 1.8 5.4c.2.6.9.6 1.2.1l2.5-4.1 4.7 3.5c.4.3 1 .1 1.1-.4L23.5 3.5c.1-.6-.5-1.1-1-.9z"/>
                             </svg>
                         </div>
                     </div>
@@ -335,6 +339,36 @@
                             <span class="label">Описание:</span> {{ $post->about }}
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <div class="col-12">
+                <div id="photo-with-comments">
+
+                    @if($post->photo->first())
+
+                        @foreach($post->photo as $item)
+
+                            <div class="photo-with-comments-item d-flex">
+                                <img src="/storage{{ $item->file }}"
+                                     alt="Индивидуалка {{ $post->name }}, доступна для личного знакомства от {{ $post->price }} руб">
+                                <div class="comments-form-wrap">
+                                    <form action="/review/photo" method="post" class="add-review">
+                                        @csrf
+                                        <input name="related_id" type="hidden" value="{{ $post->id }}">
+                                        <p class="big-red-text">Оставь комментарий к этому фото</p>
+
+                                        <input placeholder="Имя" type="text" name="name" class="review-input" required>
+                                        <textarea placeholder="Напиши что думаешь..." name="text" required></textarea>
+
+                                        <button class="red-btn">Отправить</button>
+                                    </form>
+                                </div>
+                            </div>
+
+                        @endforeach
+
+                    @endif
                 </div>
             </div>
 
