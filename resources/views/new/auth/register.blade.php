@@ -66,6 +66,10 @@
                         <a href="/login" id="toLogin">Авторизация</a>
                     </div>
 
+                    <script defer src='https://www.google.com/recaptcha/api.js'></script>
+
+                    <div id="register_recapcha" class="g-recaptcha" data-sitekey="6LfPdvArAAAAADLN4BE_MSMt6HoBZCUycc9gIV3w"></div>
+
                     <div class="form-group row mb-0">
                         <button type="submit" class="profile-main-reviews__btn">
                             Регистрация

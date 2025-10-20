@@ -23,6 +23,6 @@ class IndexController extends Controller
             ->with('notRead')
             ->first();
 
-        return view(PATH.'.cabinet.index', compact('posts', 'notReadMessage', 'tarifList'));
+        return view('new.cabinet.index', compact('posts', 'notReadMessage', 'tarifList'));
     }
 }

@@ -23,7 +23,7 @@
                 <div class="anket__main-photo">
                     <button class="anket__main-photo-delete" tabindex>
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#cross'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#cross'></use>
                         </svg>
                     </button>
                     <img class="anket__main-photo-img" data-placeholder="/storage/{{$post->avatar}}"
@@ -91,7 +91,7 @@
                         <div class="anket__info-params-col">
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#weight'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#weight'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketWeight">Вес: </label>
@@ -100,7 +100,7 @@
                             </div>
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#bust'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#bust'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketBust">Грудь: </label>
@@ -110,7 +110,7 @@
                             </div>
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#sm'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#sm'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketHeight">Рост:</label>
@@ -121,7 +121,7 @@
                         <div class="anket__info-params-col--select">
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#hair'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#hair'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketHair">Волосы:</label>
@@ -139,7 +139,7 @@
                             </div>
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#national'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#national'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketNational">Национальсность:</label>
@@ -158,7 +158,7 @@
                             </div>
                             <div class="anket__info-params-item">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#phair'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#phair'></use>
                                 </svg>
                                 <div class="anket__info-params-input">
                                     <label for="anketPhair">Интим. стрижка:</label>
@@ -185,7 +185,7 @@
                         <div class="anket__info-pricelist">
                             <div class="anket__info-pricellist-name">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#apparts'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#apparts'></use>
                                 </svg>
                                 <span>Апартаменты:</span>
                             </div>
@@ -212,7 +212,7 @@
                         <div class="anket__info-pricelist">
                             <div class="anket__info-pricellist-name">
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#car'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#car'></use>
                                 </svg>
                                 <span>Выезд:</span>
                             </div>
@@ -399,7 +399,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services1'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services1'></use>
                         </svg>
                         <span>Секс</span>
                     </h2>
@@ -460,7 +460,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services2'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services2'></use>
                         </svg>
                         <span>Минет</span>
                     </h2>
@@ -520,7 +520,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services3'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services3'></use>
                         </svg>
                         <span>Окончание</span>
                     </h2>
@@ -579,7 +579,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services4'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services4'></use>
                         </svg>
                         <span>Массаж</span>
                     </h2>
@@ -639,7 +639,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services4'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services4'></use>
                         </svg>
                         <span>Окончание</span>
                     </h2>
@@ -699,7 +699,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services6'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services6'></use>
                         </svg>
                         <span>Садо-мазо</span>
                     </h2>
@@ -758,7 +758,7 @@
                 <li class="anket__services-item">
                     <h2 class="anket__services-item-title">
                         <svg>
-                            <use xlink:href='/intim-box/images/cabinet/sprite.svg#services7'></use>
+                            <use xlink:href='/svg/dest/stack/sprite.svg#services7'></use>
                         </svg>
                         <span>Разное</span>
                     </h2>
