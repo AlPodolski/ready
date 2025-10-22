@@ -23,7 +23,7 @@ class Obmenka
         $this->secret = env('SERCRET');
     }
 
-    public function getPayUrl($orderId, $sum, $city, $currency, $des = 'Пополнение кабинета agr')
+    public function getPayUrl($orderId, $sum, $city, $currency, $des = 'Пополнение кабинета teamo')
     {
         $rayRequestResult = \json_decode($this->createPay($orderId, $sum, $city,$currency, $des ));
 
@@ -65,7 +65,7 @@ class Obmenka
     {
 
         $data = [
-            'payment_id' => $orderId.'-agr',
+            'payment_id' => $orderId.'-teamo',
             "amount" => $sum,
             'currency' => $currency,
             "description" => $des,

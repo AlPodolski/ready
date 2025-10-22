@@ -16,7 +16,7 @@ class PayController extends Controller
 
         if ($order and $order->status == Order::WAIT and $user = User::find($order->user_id)){
 
-            $orderInfo = $obmenka->getOrderInfo($order->id.'-agr');
+            $orderInfo = $obmenka->getOrderInfo($order->id.'-teamo');
 
             if (isset($orderInfo->amount) and $orderInfo->status == 'FINISHED' or $orderInfo->status == 'PAYED_RECALC') {
 
