@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="/css/cabinet.css?v=2">
+    <link rel="stylesheet" href="/css/cabinet.css?v=3">
 </head>
 
 <body>
