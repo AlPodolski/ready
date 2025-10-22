@@ -1516,10 +1516,9 @@ footer {
     content: attr(data-val);
     white-space: pre;
     max-width: 160px;
-    min-width: 3px;
+    min-width: 160px;
     height: 20px;
     font-size: 24px;
-    overflow: hidden
 }
 
 .ammount__info-balance-repl-input {
@@ -1550,6 +1549,7 @@ footer {
     -ms-flex-align: center;
     align-items: center;
     margin-right: 10px;
+    flex-wrap: wrap;
     margin-bottom: 13px
 }
 .ammount__info-balance-repl-radio-items-wrap{
@@ -1558,6 +1558,7 @@ footer {
 }
 .ammount__info-balance-repl-radio-item {
     position: relative;
+    margin-bottom: 10px;
     margin-right: 10px
 }
 
