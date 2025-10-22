@@ -186,28 +186,28 @@
     font-family: Circe;
     font-weight: 700;
     font-style: normal;
-    src: url(../fonts/Circe/circe-bold.ttf) format("truetype")
+    src: url(../fonts/circe/circe-bold.ttf) format("truetype")
 }
 
 @font-face {
     font-family: Circe;
     font-weight: 800;
     font-style: normal;
-    src: url(../fonts/Circe/circe-extrabold.ttf) format("truetype")
+    src: url(../fonts/circe/circe-extrabold.ttf) format("truetype")
 }
 
 @font-face {
     font-family: Circe;
     font-weight: 400;
     font-style: normal;
-    src: url(../fonts/Circe/circe-regular.ttf) format("truetype")
+    src: url(../fonts/circe/circe-regular.ttf) format("truetype")
 }
 
 @font-face {
     font-family: Circe;
     font-weight: 300;
     font-style: normal;
-    src: url(../fonts/Circe/circe-light.ttf) format("truetype")
+    src: url(../fonts/circe/circe-light.ttf) format("truetype")
 }
 
 @font-face {
