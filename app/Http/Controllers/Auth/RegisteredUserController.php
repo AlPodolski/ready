@@ -23,7 +23,7 @@ class RegisteredUserController extends Controller
         $cityInfo = $this->cityRepository->getCity($city);
         $data = $this->dataRepository->getData($cityInfo['id']);
 
-        return view(PATH.'.auth.register', compact('cityInfo', 'data'));
+        return view('new.auth.register', compact('cityInfo', 'data'));
     }
 
     /**
