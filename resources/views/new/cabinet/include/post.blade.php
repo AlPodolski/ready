@@ -38,14 +38,14 @@
             </h3>
             @if($post->check_photo_status)
                 <svg>
-                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#verif'></use>
+                    <use xlink:href='/svg/dest/stack/sprite.svg#verif'></use>
                 </svg>
             @endif
         </div>
         <a href="#" class="ankets__item-phone">
                             <span>
                                 <svg>
-                                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#phone'></use>
+                                    <use xlink:href='/svg/dest/stack/sprite.svg#phone'></use>
                                 </svg>
                             </span>
             <span>
@@ -57,7 +57,7 @@
                 <a class="ankets__item-metrolis-item metrolist__item">
                                 <span>
                                     <svg>
-                                        <use xlink:href='/intim-box/images/cabinet/sprite.svg#metro'></use>
+                                        <use xlink:href='/svg/dest/stack/sprite.svg#metro'></use>
                                     </svg>
                                 </span>
                     <span>
@@ -70,7 +70,7 @@
             <a class="ankets__item-locallist-item locallist__item">
                                 <span>
                                     <svg>
-                                        <use xlink:href='/intim-box/images/cabinet/sprite.svg#location'></use>
+                                        <use xlink:href='/svg/dest/stack/sprite.svg#location'></use>
                                     </svg>
                                 </span>
                 <span>
@@ -80,7 +80,7 @@
         </div>
         <div href="#" class="ankets__item-phone ankets__item-phone-view">
             <svg>
-                <use xlink:href='/intim-box/images/cabinet/sprite.svg#phone'></use>
+                <use xlink:href='/svg/dest/stack/sprite.svg#phone'></use>
             </svg>
             Просмотров телефона {{ $post->phone_view_count }}
         </div>
@@ -102,13 +102,13 @@
         <div class="ankets__item-field ankets__item-ui">
             <a class="ankets__item-ui-item ankets__item-ui-item--1" href="/cabinet/post/{{$post->id}}/edit">
                 <svg>
-                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#pencil'></use>
+                    <use xlink:href='/svg/dest/stack/sprite.svg#pencil'></use>
                 </svg>
             </a>
             <div onclick="delete_post(this)" data-id="{{ $post->id }}"
                  class="ankets__item-ui-item ankets__item-ui-item--3" href="#">
                 <svg>
-                    <use xlink:href='/intim-box/images/cabinet/sprite.svg#trash'></use>
+                    <use xlink:href='/svg/dest/stack/sprite.svg#trash'></use>
                 </svg>
             </div>
         </div>
