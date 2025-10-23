@@ -2924,6 +2924,8 @@ div#register_recapcha {
     margin-right: auto;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
+    position: relative;
+    z-index: 60;
     justify-content: space-between
 }
 
