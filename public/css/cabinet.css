@@ -2673,19 +2673,19 @@ footer {
 }
 
 .anket__services-item-select .current.anket__services-item-option--1::after {
-    background-image: url(../images/icons/all.svg)
+    background-image: url(../images/all.svg)
 }
 
 .anket__services-item-select .current.anket__services-item-option--2::after {
-    background-image: url(../images/icons/simp.svg)
+    background-image: url(../images/simp.svg)
 }
 
 .anket__services-item-select .current.anket__services-item-option--3::after {
-    background-image: url(../images/icons/money.svg)
+    background-image: url(../images/money.svg)
 }
 
 .anket__services-item-select .current.anket__services-item-option--4::after {
-    background-image: url(../images/icons/block.svg)
+    background-image: url(../images/block.svg)
 }
 
 .anket__services-item-select .option {
