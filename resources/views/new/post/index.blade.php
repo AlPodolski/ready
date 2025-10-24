@@ -29,10 +29,6 @@
         </div>
     @endif
 
-    @php
-        $meta['h1'] = $post['name']
-    @endphp
-
     @include('new.include.breadcrumb')
 
     <div class="col-12 single-card">
