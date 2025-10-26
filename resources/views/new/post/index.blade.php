@@ -37,14 +37,14 @@
                 <div class="swiper mySwiper">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
-                            <img src="/storage{{$post->avatar}}"
+                            <img src="/storage/{{$post->avatar}}"
                                  alt="{{ $post->name }} привлекальеная девушка из {{ $post->city->city2 }} цена от {{ $post->price }} руб">
                         </div>
 
                         @if($post->photo->first())
 
                             @foreach($post->photo as $item)
-                                <div class="swiper-slide"><img src="/storage{{ $item->file }}" loading="lazy"
+                                <div class="swiper-slide"><img src="/storage/{{ $item->file }}" loading="lazy"
                                                                alt="Индивидуалка {{ $post->name }}, доступна для личного знакомства от {{ $post->price }} руб">
                                 </div>
                             @endforeach
@@ -220,7 +220,7 @@
             <div class="col-12 single-other-info">
                 <div class="profile-card">
                     <div class="profile-header d-flex">
-                        <img src="/storage{{$post->avatar}}" alt="{{ $post->name }}" class="profile-avatar">
+                        <img src="/storage/{{$post->avatar}}" alt="{{ $post->name }}" class="profile-avatar">
                         <div class="name-info-wrap d-flex">
                             <div class="profile-name">{{ $post->name }}</div>
                             <div class="profile-info">
