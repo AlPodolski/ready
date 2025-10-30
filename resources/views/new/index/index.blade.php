@@ -19,10 +19,6 @@
     @include('new.include.location_metro')
 @endsection
 
-@section('h1')
-    <h1 class="big-red-text page-h1">{{ $meta['h1'] }}</h1>
-@endsection
-
 @php
     $post = $posts->first();
 @endphp
@@ -47,9 +43,16 @@
         {!! $webSiteMicro !!}
     @endif
 
-    <div class="row content">
+    <div class="links d-flex">
+        <a href="#" class="link">Новые</a>
+        <a href="#" class="link">Элитные</a>
+        <a href="#" class="link">Инди</a>
+        <a href="#" class="link">Инди</a>
+    </div>
+    <h1>{{ $meta['h1'] }}</h1>
+    <div class="posts">
         @php
-        $i = 0;
+            $i = 0;
         @endphp
         @foreach($posts as $post)
             @include('new.include.item')
