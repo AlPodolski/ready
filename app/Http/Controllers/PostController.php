@@ -48,7 +48,7 @@ class PostController extends Controller
 
         return view('new.post.index', compact(
             'post', 'viewPosts', 'data', 'meta', 'breadMicro', 'imageMicro',
-            'morePosts', 'productMicro', 'viewCount', 'serviceTypeInfo'
+            'morePosts', 'productMicro', 'serviceTypeInfo'
         ));
     }
 
