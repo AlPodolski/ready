@@ -37,8 +37,6 @@ class PostController extends Controller
         $imageMicro = $this->imageMicro->generate($post, $cityInfo['city']);
         $productMicro = (new GenerateProductMicroForSingle($post))->generate($cityInfo);
 
-        $viewCount = Redis::INCR('post:view:' . $post->id);
-
         $morePosts = $this->postRepository->getMore($cityInfo['id'], 8);
 
         $addViewToCookie->add($post->id);
