@@ -1,4 +1,4 @@
-<div class="col-12">
+<div class="side-menu" id="filter">
     <form class="filter d-flex" id="filterPanel" action="/poisk">
         <div class="close-btn" id="filterClose">
             &times;
@@ -67,9 +67,6 @@
                 <input type="text" data-value="{{ $dataSearch['grud-to'] ?? 8 }}" readonly class="right-input" id="grud-to" name="grud-to">
             </div>
         </div>
-
-        <button class="red-btn">Поиск</button>
-
+        <button class="orange-btn">Поиск</button>
     </form>
-    <button id="filterToggle">Показать фильтр</button>
 </div>

@@ -3,6 +3,7 @@ const html = document.documentElement;
 const burger = document.querySelector('.burger-menu');
 const sideMenu = document.getElementById('side-menu');
 const overlay = document.querySelector('.menu-overlay');
+const close_filter = document.getElementById('filterClose');
 
 function openMenu(){
     html.classList.add('is-menu-open');
@@ -20,8 +21,39 @@ burger.addEventListener('click', ()=>{
     isOpen ? closeMenu() : openMenu();
 });
 overlay.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeFilter);
+close_filter.addEventListener('click', closeFilter);
 document.addEventListener('keydown', (e)=>{
     if(e.key === 'Escape') closeMenu();
+});
+
+const filterBtns = document.querySelectorAll('.filter-btn');
+const filterPanel = document.getElementById('filter');
+
+function openFilter(){
+    html.classList.add('is-filter-open');
+    filterPanel.setAttribute('aria-hidden','false');
+    filterPanel.focus?.();
+}
+function closeFilter(){
+    html.classList.remove('is-filter-open');
+    filterPanel.setAttribute('aria-hidden','true');
+}
+
+// Открытие фильтра по клику на кнопку(ы)
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const isOpen = html.classList.contains('is-filter-open');
+        isOpen ? closeFilter() : openFilter();
+    });
+});
+
+// Закрытие по Esc
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') {
+        closeFilter();
+        closeMenu(); // на случай если оба открыты
+    }
 });
 
 // Аккордеоны (без <details>)
@@ -224,3 +256,93 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.head.appendChild(script);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Проверка наличия хотя бы одного блока слайдера
+    const ids = ['age', 'ves', 'grud', 'price'];
+    const hasSlider = ids.some(id => document.getElementById(id));
+
+    if (!hasSlider) return;
+
+    // Подключение CSS
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/css/nouislider.min.css';
+    document.head.prepend(css);
+
+    // Функция динамического подключения скриптов
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.prepend(script);
+        });
+    }
+
+    // Загружаем оба скрипта и после инициализируем слайдеры
+    Promise.all([
+        loadScript('/js/nouislider.min.js'),
+        loadScript('/js/wNumb.min.js')
+    ]).then(() => {
+        // Вызываем createSlider только после полной загрузки скриптов
+        createSlider('age', 'age-from', 'age-to', 18, 80, 1, '', '', true);
+        createSlider('ves', 'ves-from', 'ves-to', 40, 100, 1, ' кг');
+        createSlider('grud', 'grud-from', 'grud-to', 0, 8, 1, ' размер');
+        createSlider('price', 'price-from', 'price-to', 1500, 50000, 100, ' ₽', ' ');
+    }).catch(err => {
+        console.error('Ошибка при загрузке скриптов:', err);
+    });
+});
+
+function createSlider(sliderId, fromId, toId, min, max, step, suffix = '', thousandSeparator = '', useCustomFormat = false) {
+    var slider = document.getElementById(sliderId);
+
+    var formatOptions = useCustomFormat ? {
+        to: function (value) {
+            return ageSuffix(value);
+        },
+        from: function (value) {
+            return Number(value.replace(/[^0-9]/g, ''));
+        }
+    } : wNumb({
+        decimals: 0,
+        thousand: thousandSeparator,
+        suffix: suffix
+    });
+
+    noUiSlider.create(slider, {
+        start: [
+            document.getElementById(fromId).getAttribute('data-value'),
+            document.getElementById(toId).getAttribute('data-value')
+        ],
+        connect: true,
+        step: step,
+        format: formatOptions,
+        range: {
+            'min': min,
+            'max': max
+        }
+    });
+
+    slider.noUiSlider.on('update', function (values) {
+        document.getElementById(fromId).value = values[0];
+        document.getElementById(toId).value = values[1];
+    });
+}
+
+function ageSuffix(value) {
+    value = parseInt(value);
+    let mod10 = value % 10;
+    let mod100 = value % 100;
+
+    if (mod10 === 1 && mod100 !== 11) {
+        return value + ' год';
+    } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+        return value + ' года';
+    } else {
+        return value + ' лет';
+    }
+}

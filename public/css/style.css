@@ -199,6 +199,30 @@ body {
     background: linear-gradient(167deg, #1D2235 0%, #6F3B5B 50%, #1D2235 100%);
 }
 
+.filter-btn{
+    border-radius: 3px;
+    background: linear-gradient(90deg, #FF3B2F 0%, #E44F1D 50.48%, #D7433A 100%);
+    box-shadow: 0 5px 4.3px 0 rgba(60, 50, 71, 0.75);
+    color: #FFF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    text-transform: uppercase;
+    padding: 10px;
+    max-width: 240px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+}
+
 h1 {
     text-align: center;
     color: #FFF;
@@ -620,17 +644,17 @@ h1 {
 }
 
 /* Состояние “открыто” */
-.is-menu-open .side-menu {
+.is-menu-open .side-menu , .is-filter-open #filter{
     transform: translateX(0)
 }
 
-.is-menu-open .menu-overlay {
+.is-menu-open .menu-overlay , .is-filter-open .menu-overlay{
     opacity: 1;
     pointer-events: auto
 }
 
 /* Блокировка прокрутки страницы при открытом меню */
-.is-menu-open {
+.is-menu-open , .is-filter-open{
     overflow: hidden
 }
 
@@ -638,6 +662,92 @@ h1 {
     --grad: linear-gradient(167deg, #1D2235 0%, #6F3B5B 50%, #1D2235 100%);
     --text: #fff;
     --accent:#FF3B2F;
+}
+
+.filter{
+    flex-direction: column;
+    padding-top: 20px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#filterClose{
+    position: absolute;
+    right: 10px;
+    top: 20px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.form-item select{
+    background: rgba(255, 255, 255, .12);
+    width: 160px;
+    padding: 6px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.noUi-horizontal {
+    height: 2px;
+    border: none;
+    margin-bottom: 15px;
+}
+.form-item{
+    margin-bottom: 20px;
+}
+.noUi-connect {
+    background: #F74952;
+}
+.noUi-horizontal .noUi-handle {
+    width: 19px;
+    height: 19px;
+    border-radius: 50%;
+    top: -10px;
+}
+.inputs {
+    display: flex;
+}
+.inputs input {
+    max-width: 75px;
+    border: none;
+}
+
+.noUi-handle::after, .noUi-handle::before{
+    display: none;
+}
+.slider-text{
+    margin-bottom: 15px;
+}
+.right-input{
+    text-align: right;
+    position: relative;
+    right: -15px;
+}
+
+.orange-btn{
+    border-radius: 3px;
+    background: linear-gradient(90deg, #FF3B2F 0%, #E44F1D 50.48%, #D7433A 100%);
+    box-shadow: 0 5px 4.3px 0 rgba(60, 50, 71, 0.75);
+    color: #FFF;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    text-transform: uppercase;
+    padding: 10px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
 }
 
 /* Анимации по предпочтениям пользователя */
