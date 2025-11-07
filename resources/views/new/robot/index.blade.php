@@ -1,4 +1,5 @@
 User-agent: *
+Disallow: /
 Disallow: */?q=*
 Disallow: /filter?*
 Disallow: /poisk?*

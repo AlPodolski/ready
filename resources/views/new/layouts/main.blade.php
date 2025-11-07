@@ -36,7 +36,7 @@
         @yield('preload_img')
     @endif
 
-    <meta property="og:site_name" content="1"/>
+    <meta property="og:site_name" content="sex-silk.com"/>
     <meta property="og:locale" content="ru_RU"/>
 
     <link rel="preconnect" href="https://mc.yandex.ru">
