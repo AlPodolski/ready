@@ -187,21 +187,21 @@ class PostRepository
             return preg_replace('/[^0-9]/', '', $item);
         }, $data);
 
-        $posts = Post::where('age', '>=', $data['age-from'])
+        $posts = Post::where('age', '>=', $data['vozrast-ot'])
             ->with(['metro', 'city', 'photo', 'checkPhoto'])
             ->where(['publication_status' => Post::POST_ON_PUBLICATION])
-            ->where('age', '<=', $data['age-to'])
-            ->where('ves', '>=', $data['ves-from'])
-            ->where('ves', '<=', $data['ves-to'])
-            ->where('breast', '>=', $data['grud-from'])
-            ->where('breast', '<=', $data['grud-to'])
-            ->where('price', '>=', $data['price-from'])
-            ->where('price', '<=', $data['price-to'])
+            ->where('age', '<=', $data['vozrast-do'])
+            ->where('ves', '>=', $data['ves-ot'])
+            ->where('ves', '<=', $data['ves-do'])
+            ->where('breast', '>=', $data['grud-ot'])
+            ->where('breast', '<=', $data['grud-do'])
+            ->where('price', '>=', $data['cena-ot'])
+            ->where('price', '<=', $data['cena-do'])
             ->where(['city_id' => $cityId]);
 
         if (isset($data['rost-from'])) {
-            $posts = $posts->where('rost', '>=', $data['rost-from'])
-                ->where('rost', '<=', $data['rost-to']);
+            $posts = $posts->where('rost', '>=', $data['rost-ot'])
+                ->where('rost', '<=', $data['rost-do']);
         }
         if (isset($data['national_id']) and $data['national_id']) {
             $posts = $posts->where('national_id', $data['national_id']);
