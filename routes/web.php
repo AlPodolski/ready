@@ -70,7 +70,7 @@ Route::middleware('redirect')->group(function () {
         Route::get('/sitemap_page.xml', [\App\Http\Controllers\SiteMapController::class, 'page']);
 
         Route::get('/robots.txt', \App\Http\Controllers\RobotController::class);
-        Route::get('/intim-karta', \App\Http\Controllers\MapController::class);
+        Route::get('/intim-map', \App\Http\Controllers\MapController::class);
 
         Route::post('/favorite/add', [\App\Http\Controllers\FavoriteController::class, 'add']);
         Route::get('/favorite', [\App\Http\Controllers\FavoriteController::class, 'index']);

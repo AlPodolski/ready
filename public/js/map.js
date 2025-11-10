@@ -1,53 +1,65 @@
-function create_img(src, link) {
-    return '<a target="_blank" href="/post/'+ link +'">' +
-        '<img src="' + src + '" class="yandex-map-img">' +
-        '</a>'
+// helper'ы
+function createImg(src, link) {
+    return `
+    <a target="_blank" href="/post/${link}">
+      <img src="${src}" class="yandex-map-img">
+    </a>`;
 }
 
-function create_ballon_content(item) {
-    return create_img(item.avatar, item.url) + "<br>"
-        + "<a href='tel:+" + item.phone + "' class='map-phone'> " + item.phone + " </a><br>"
-        + "<a target='_blank' class='map-link' href='/post/" + item.url + "'> Подробнее </a>"
-        + "<div class='small-red-text'>" + item.price + " р.</div>";
+function createBalloonContent(item) {
+    return (
+        createImg(item.avatar, item.url) + "<br>" +
+        `<a href="tel:+${item.phone}" class="map-phone">${item.phone}</a><br>` +
+        `<a target="_blank" class="map-link" href="${item.url}">Подробнее</a>` +
+        `<div class="small-red-text">${item.price} р.</div>`
+    );
 }
 
-ymaps.ready(init_map_with_posts);
+// ждём готовности API Яндекс.Карт
+ymaps.ready(initMapWithPosts);
 
-function init_map_with_posts() {
-
-    var myMap = new ymaps.Map("yandex-map", {
+function initMapWithPosts() {
+    const myMap = new ymaps.Map("yandex-map", {
         center: [55.76, 37.64],
-        zoom: 10,
+        zoom: 10
     }, {
-        searchControlProvider: 'yandex#search'
+        searchControlProvider: "yandex#search"
     });
 
-    var data = JSON.parse($('.map-data').html());
+    // берём JSON из .map-data (например <script type="application/json" class="map-data">...</script>)
+    const mapDataEl = document.querySelector(".map-data");
+    if (!mapDataEl) {
+        console.warn("Элемент .map-data не найден");
+        return;
+    }
 
-    var result = [];
+    let data = [];
+    try {
+        // textContent безопаснее, чем innerHTML
+        data = JSON.parse(mapDataEl.textContent.trim() || "[]");
+    } catch (e) {
+        console.error("Не могу распарсить JSON в .map-data", e);
+        return;
+    }
 
-    var presetName = "twirl#violetIcon";
+    const presetName = "twirl#violetIcon";
+    const points = data.map(item => new ymaps.GeoObject(
+        {
+            geometry: {type: "Point", coordinates: [item.x, item.y]},
+            properties: {
+                clusterCaption: item.name,
+                hintContent: item.name,
+                balloonContent: createBalloonContent(item)
+            }
+        },
+        {preset: presetName}
+    ));
 
-    data.forEach(function (item) {
+    const clusterer = new ymaps.Clusterer({
+        preset: "twirl#redClusterIcons",
+        gridSize: 100
+    });
 
-        var myGeoObject = new ymaps.GeoObject({
-                geometry: {type: "Point", coordinates: [item.x, item.y]},
-                properties: {
-                    clusterCaption: item.name,
-                    hintContent: item.name,
-                    balloonContent: create_ballon_content(item),
-                }
-            },
-            {preset: presetName});
-
-        result.push(myGeoObject);
-
-    })
-
-    var myClusterer0 = new ymaps.Clusterer({preset: "twirl#redClusterIcons", gridSize: 100});
-
-    myClusterer0.add(result);
-
-    myMap.geoObjects.add(myClusterer0);
-
+    clusterer.add(points);
+    myMap.geoObjects.add(clusterer);
 }

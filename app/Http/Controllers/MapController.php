@@ -27,7 +27,7 @@ class MapController extends Controller
 
         $posts = $this->postRepository->getForMap($cityInfo['id']);
 
-        $meta = $metaRepository->getForFilter('intim-karta', $cityInfo, $request);
+        $meta = $metaRepository->getForFilter('intim-map', $cityInfo, $request);
 
         $breadMicro = $this->breadMicro->generate($request, $meta['h1']);
 

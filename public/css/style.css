@@ -727,6 +727,10 @@ h1 {
     right: -15px;
 }
 
+.d-none{
+    display: none;
+}
+
 .orange-btn{
     border-radius: 3px;
     background: linear-gradient(90deg, #FF3B2F 0%, #E44F1D 50.48%, #D7433A 100%);
