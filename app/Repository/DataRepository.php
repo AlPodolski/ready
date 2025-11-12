@@ -87,6 +87,14 @@ class DataRepository
                 '40+'   => 'ot-40',
             ];
 
+            $vneshnost = collect([
+                (object) ['filter_url' => 'bolshaya-grud', 'value' => 'С большой грудью'],
+                (object) ['filter_url' => 'hudye',          'value' => 'Худые'],
+                (object) ['filter_url' => 'tolstye',        'value' => 'Толстые'],
+                (object) ['filter_url' => 'vysokie',        'value' => 'Высокие'],
+                (object) ['filter_url' => 'nizkie',         'value' => 'Низенькие'],
+            ]);
+
             $agesCollection = collect($ages)->map(function ($url, $value) {
                 return (object) [
                     'filter_url' => $url,
@@ -95,6 +103,7 @@ class DataRepository
             })->values();
 
             $data['vozrast'] = $agesCollection;
+            $data['vneshnost'] = $vneshnost;
 
             $data['city_list'] = City::all();
 

@@ -17,6 +17,7 @@ class GenerateItemsForBreadcrumb
             'service' => 'Услуги',
             'price' => 'Цена',
             'vozrast' => 'Возраст',
+            'vneshnost' => 'Внешность',
         ];
 
         $url = $request->path();

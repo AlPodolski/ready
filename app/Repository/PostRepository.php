@@ -79,9 +79,10 @@ class PostRepository
         foreach ($searchData as $search) {
             if (strpos($search, 'intim-salony') !== false) $salon = true;
             if (strpos($search, 'individualki') !== false) $indi = true;
-            if (strpos($search, 'tolstye-prostitutki') !== false) $posts->where('ves', '>=', 80);
+            if (strpos($search, 'bolshaya-grud') !== false) $posts->where('breast', '>=', 3);
+            if (strpos($search, 'tolstye') !== false) $posts->where('ves', '>=', 80);
             if (strpos($search, 'hudye') !== false) $posts->where('ves', '<', 60);
-            if (strpos($search, 'visokie') !== false) $posts->where('rost', '>=', 170);
+            if (strpos($search, 'vysokie') !== false) $posts->where('rost', '>=', 170);
             if (strpos($search, 'nizkie') !== false) $posts->where('rost', '<', 170);
             if (strpos($search, '18-let') !== false) $posts->where('age', '=', 18);
             if (strpos($search, 'do-20-let') !== false) $posts->where('age', '<', 21);

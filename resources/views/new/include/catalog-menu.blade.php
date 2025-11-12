@@ -32,6 +32,7 @@
               'intimHair' => 'Интимная стрижка',
               'service' => 'Услуги',
               'vozrast' => 'Возраст',
+              'vneshnost' => 'Внешность',
             ];
         @endphp
 
