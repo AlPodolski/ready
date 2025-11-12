@@ -54,6 +54,9 @@ Route::middleware('redirect')->group(function () {
         Route::get('/{slug}', [\App\Http\Controllers\CategoryController::class, 'index'])
             ->where('slug', '^(metro|rayon|national|service)$');
 
+        Route::get('/{section}/{slug}',[\App\Http\Controllers\FilterController::class, 'slug'])
+            ->where('section', '^(metro|rayon|national|service)$');
+
         Route::get('/blog', [\App\Http\Controllers\BlogController::class, 'index']);
         Route::get('/blog/{url}', [\App\Http\Controllers\BlogController::class, 'post']);
 

@@ -74,5 +74,45 @@ class GenerateBreadcrumbMicro
         return $data;
 
     }
+
+    public function generateFromArray($request, $breadCrumbItems): string
+    {
+        $host = $request->getHttpHost();
+
+        $position = 1;
+
+        $data = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => [array(
+                '@type' => 'ListItem',
+                'position' => $position,
+                'item' => [
+                    '@id' => 'https://' . $host,
+                    'name' => 'Главная'
+                ]),
+            ]
+        ];
+
+        foreach ($breadCrumbItems as $key => $value) {
+
+            $data['itemListElement'][] = [
+                array(
+                    '@type' => 'ListItem',
+                    'position' => $position++   ,
+                    'item' => [
+                        '@id' => 'https://' . $host . '/' . $key,
+                        'name' => $value
+                    ]),
+            ];
+
+        }
+
+        $data = '<script type="application/ld+json">' . json_encode($data) . '</script>';
+
+        return $data;
+
+
+    }
 }
 

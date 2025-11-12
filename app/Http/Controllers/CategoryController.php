@@ -26,7 +26,7 @@ class CategoryController extends Controller
 
         $data = $this->dataRepository->getData($cityInfo['id']);
 
-        $meta = $metaRepository->getForMain($search, $cityInfo, $request);
+        $meta = $metaRepository->getForMain('/'.$search, $cityInfo, $request);
 
         $breadMicro = $this->breadMicro->generate($request, $meta['h1']);
 
