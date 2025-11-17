@@ -22,6 +22,7 @@ class SiteMapController extends Controller
         $cityInfo = $this->cityRepository->getCity($city);
 
         $posts = Post::where('city_id', $cityInfo['id'])
+            ->with('national')
             ->get();
 
         return response()->view(PATH.'.map.post', compact('posts'))

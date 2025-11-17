@@ -10,7 +10,7 @@
         @foreach($posts as $post)
 
             <url>
-                <loc>https://{{ $_SERVER['HTTP_HOST'] }}/post/{{ $post->url }}</loc>
+                <loc>https://{{ $_SERVER['HTTP_HOST'] }}/{{ $post->national->filter_url }}/{{ $post->url }}</loc>
                 <lastmod>{{ \Carbon\Carbon::parse($post->updated_at )->toDateString()}}</lastmod>
                 <priority>0.8</priority>
             </url>
