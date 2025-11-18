@@ -18,21 +18,17 @@ class SingleMetaService
 
     private function makeTitleForIntimBox(Post $post, $cityInfo): string
     {
-
-        if ($post->price < 3001) $price = ' дешевая ';
-        else $price = ' дорогая ';
+        if ($post->price < 3001) $price = ' Дешевая ';
+        else $price = ' Элитная ';
 
         $national = '';
+        $check = '';
+
+        if ($post->check_photo_status) $check = ' проверенная ';
 
         if ($post->national) $national = $post->national->value;
 
-        $metro = $post->metro->first();
-
-        $title = $post->name . ' ' . $post->id . ' -' . $price . 'проститутка ' . $national . ' ' . $cityInfo['city3'];
-
-        if ($metro) $title .= ', метро ' . $metro->metro_value;
-
-        if ($post->age) $title .= ', ' . $this->pluralAge($post->age);
+        $title = $price . $check. ' проститутка '  . $national .  $post->name . ' -' . ' в ' . $cityInfo['city3'];
 
         return $title;
     }
@@ -40,14 +36,21 @@ class SingleMetaService
     private function makeDesForIntimBox(Post $post, $cityInfo): string
     {
 
+        // Индивидуалка [имя], [возраст]. Я живу в [городе], метро [метро]. Работаю на выезд и есть свои апартаменты. Можешь звонить по номеру [номер]
+
         $national = '';
         $age = '';
 
-        if ($post->national) $national = $post->national->value;
+        $metro = $post->metro->first();
+
+        $metroText = '';
+
+        if ($metro) $metroText .= ', метро ' . $metro->metro_value;
+
         if ($post->age) $age =  $this->pluralAge($post->age);
 
-        $des = 'Проститутка ' . $post->name . ' ' .$national. ' '.$age. ' '. $cityInfo['city3'];
-        $des .= ' удовлетворит ваши самые потайные желания. На сайте подробная анкета с номером телефона, фотографиями и отзывами.';
+        $des = 'Индивидуалка ' . $post->name . ' '.$age. ' Я живу в '. $cityInfo['city3'] . $metroText;
+        $des .= ' Работаю на выезд и есть свои апартаменты. Можешь звонить по номеру ' .$post->phone;
 
         $des .= ' ID анкеты '.$post->id;
 
@@ -56,7 +59,7 @@ class SingleMetaService
 
     private function makeH1ForIntimBox(Post $post, $cityInfo): string
     {
-        $h1 = $post->name . ' – страстная индивидуалка ' . $cityInfo['city3'];
+        $h1 = $post->name;
 
         return $h1;
     }

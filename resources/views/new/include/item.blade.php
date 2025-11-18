@@ -6,7 +6,8 @@
     <div class="position-relative">
         <a href="{{ $post->getSingleUrlAttribute() }}">
             <img @if(isset($i) and $i > 0) loading="lazy" @endif src="/thumbnail/600-800/{{ $post->avatar }}"
-                 alt="{{ $post->name }} привлекальеная девушка из {{ $post->city->city2 }} цена от {{ $post->price }} руб">
+                 title="Проститутка {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
+                 alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
         </a>
     </div>
     <div class="bottom-post-info">
