@@ -147,7 +147,7 @@ class ImportPosts extends Command
 
                     $cityId = $cityInfo->id;
 
-                    $post->name = $record['name'];
+                    $post->name = strstr($record['name'], ' ', true);
                     if ($record['age'] != '-') $post->age = $record['age'];
                     else $post->age = 28;
                     $post->phone = '';
