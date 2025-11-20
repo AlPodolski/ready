@@ -153,13 +153,13 @@ class ImportPosts extends Command
                     $post->phone = '';
                     if ($record['rost'] != '-') $post->rost = $record['rost'];
                     else $post->rost = 165;
-                    if ($record['weight'] != '-' and $record['weight'] < 100) $post->ves = $record['weight'];
+                    if ($record['weght'] != '-' and $record['weght'] < 100) $post->ves = $record['weght'];
                     else $post->ves = 55;
                     if ($record['grud'] != '-') $post->breast = $record['grud'];
                     else $post->breast = 1;
                     $post->tatu = rand(0, 1);
                     $post->pircing = rand(0, 1);
-                    $post->about = strip_tags($record['anket-about']);
+                    $post->about = strip_tags($record['deskr']);
                     $post->city_id = $cityId;
                     $post->check_photo_status = 0;
                     $post->price = $price;
