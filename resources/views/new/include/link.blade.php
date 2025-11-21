@@ -1,4 +1,4 @@
-@if($links)
+@if($links and false)
 
     <div class="links d-flex">
         @foreach($links as $item)
