@@ -257,22 +257,22 @@ class PostRepository
 
     public function getMore($cityId, $limit)
     {
-
         $expire = Carbon::now()->addMinutes(1);
 
-        $posts = Cache::remember('more_post_' . $cityId, $expire, function () use ($cityId, $limit) {
+        return Cache::remember("more_post_{$cityId}", $expire, function () use ($cityId, $limit) {
 
-            $posts = Post::where(['city_id' => $cityId])
-                ->where(['publication_status' => Post::POST_ON_PUBLICATION])
-                ->with('metro', 'city', 'national')
-                ->orderByRaw('RAND()')
-                ->limit($limit)->get();
+            // 1) Получаем случайные ID постов
+            $randomIds = Post::where('city_id', $cityId)
+                ->where('publication_status', Post::POST_ON_PUBLICATION)
+                ->inRandomOrder() // это оптимизация через ORDER BY RAND() по индексу PK
+                ->limit($limit)
+                ->pluck('id');
 
-            return $posts;
-
+            // 2) Загружаем посты с отношениями
+            return Post::whereIn('id', $randomIds)
+                ->with(['metro', 'city', 'national'])
+                ->get();
         });
-
-        return $posts;
     }
 
     public function getFavorite()
