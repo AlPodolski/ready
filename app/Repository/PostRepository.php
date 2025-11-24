@@ -109,9 +109,9 @@ class PostRepository
 
             if (strpos($search, 'elitnye') !== false) $posts->where('price', '>', 9999);
             if (strpos($search, 'deshevye') !== false) $posts->where('price', '<', 3001);
-            if (strpos($search, 'proverennye-prostitutki') !== false) $posts->where('check_photo_status', 1);
-            if (strpos($search, 'individualki-s-video') !== false) $posts->whereNotNull('video');
-            if (strpos($search, 'novye-prostitutki') !== false) $posts->orderByDesc('id');
+            if (strpos($search, 'proverennye') !== false) $posts->where('check_photo_status', 1);
+            if (strpos($search, 's-video') !== false) $posts->whereNotNull('video');
+            if (strpos($search, 'novye') !== false) $posts->orderByDesc('id');
 
             $expire = Carbon::now()->addHours(1200);
 
