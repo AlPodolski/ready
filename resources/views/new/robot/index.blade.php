@@ -1,31 +1,29 @@
 User-agent: *
-Disallow: /
-@if(false)
-    Disallow: */?q=*
-    Disallow: /filter?*
-    Disallow: /poisk?*
-    Allow: */*.js
-    Allow: */*.css
-    Allow: */*.gif
-    Allow: */*.png
-    Allow: */*.jpeg
-    Allow: */*.jpg
-    Allow: */*.JPG
-    Allow: */*.woff
-    Allow: */*.woff2
-    Allow: */*.ttf
 
-    User-agent: Yandex
-    Disallow: /filter?*
-    Disallow: /poisk?*
-    Disallow: */amp/*
+Disallow: */?q=*
+Disallow: /filter?*
+Disallow: /poisk?*
+Allow: */*.js
+Allow: */*.css
+Allow: */*.gif
+Allow: */*.png
+Allow: */*.jpeg
+Allow: */*.jpg
+Allow: */*.JPG
+Allow: */*.woff
+Allow: */*.woff2
+Allow: */*.ttf
 
-    Clean-param: p
+User-agent: Yandex
+Disallow: /filter?*
+Disallow: /poisk?*
+Disallow: */amp/*
 
-    Disallow: /login
-    Disallow: /register
+Clean-param: p
 
-    Sitemap: https://{{$host}}/sitemap_post.xml
-    Sitemap: https://{{$host}}/sitemap_page.xml
-@endif
+Disallow: /login
+Disallow: /register
+
+Sitemap: https://{{$host}}/sitemap_post.xml
+Sitemap: https://{{$host}}/sitemap_page.xml
 
