@@ -25,7 +25,7 @@ class PostRepository
     {
         $posts = Post::where('city_id', $cityId)
             ->where(['publication_status' => Post::POST_ON_PUBLICATION])
-            ->with('metro', 'national')
+            ->with('metro', 'national', 'city')
             ->orderByRaw($this->sort)
             ->paginate($this->postLimit);
 
@@ -264,7 +264,7 @@ class PostRepository
 
             $posts = Post::where(['city_id' => $cityId])
                 ->where(['publication_status' => Post::POST_ON_PUBLICATION])
-                ->with('metro')
+                ->with('metro', 'city')
                 ->orderByRaw('RAND()')
                 ->limit($limit)->get();
 
