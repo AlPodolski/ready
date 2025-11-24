@@ -19,7 +19,6 @@ class DataRepository
 {
     public function getData($cityId): array
     {
-        Cache::flush();
         $expire = Carbon::now()->addHours(1200);
 
         $data = Cache::remember('data_menu_' . $cityId, $expire, function () use ($cityId) {
