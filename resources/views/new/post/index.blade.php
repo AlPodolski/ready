@@ -40,7 +40,7 @@
                     <div class="swiper-slide">
                         <img src="/storage/{{$post->avatar}}"
                              title="Проститутка {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
-                             alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">>
+                             alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
                     </div>
 
                     @if($post->photo->first())
@@ -48,7 +48,7 @@
                         @foreach($post->photo as $item)
                             <div class="swiper-slide"><img src="/storage/{{ $item->file }}" loading="lazy"
                                                            title="Проститутка {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
-                                                           alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">>
+                                                           alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
                             </div>
                         @endforeach
 
@@ -111,33 +111,6 @@
                     {{ $post->about }}
                 </div>
             </div>
-            <div class="service-wrap">
-                <div class="about-heading">
-                    Услуги
-                </div>
-                <ul class="list">
-
-                    @foreach($post->service as $item)
-
-                        @php
-
-                            $class = '';
-
-                            if ($item->not_available == 0) $class = 'done';
-
-                        @endphp
-
-                        <li class="item {{ $class }} ">
-                            <div class="check">
-                                <div class="check-icon"></div>
-                            </div>
-                            <a href="/service/{{ $item->filter_url }}" class="label">{{ $item->value }}</a>
-                        </li>
-
-                    @endforeach
-
-                </ul>
-            </div>
 
             @php
 
@@ -163,6 +136,33 @@
                 </div>
             @endif
 
+        </div>
+        <div class="service-wrap">
+            <div class="about-heading">
+                Услуги
+            </div>
+            <ul class="list">
+
+                @foreach($post->service as $item)
+
+                    @php
+
+                        $class = '';
+
+                        if ($item->not_available == 0) $class = 'done';
+
+                    @endphp
+
+                    <li class="item {{ $class }} ">
+                        <div class="check">
+                            <div class="check-icon"></div>
+                        </div>
+                        <a href="/service/{{ $item->filter_url }}" class="label">{{ $item->value }}</a>
+                    </li>
+
+                @endforeach
+
+            </ul>
         </div>
     </div>
 

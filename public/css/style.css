@@ -739,6 +739,15 @@ h1 {
     column-count: 4;
 }
 
+.service-wrap{
+    width: 100%;
+    margin-top: 15px;
+}
+
+.service-wrap .list{
+    column-count: 5;
+}
+
 .orange-btn{
     border-radius: 3px;
     background: linear-gradient(90deg, #FF3B2F 0%, #E44F1D 50.48%, #D7433A 100%);
@@ -775,8 +784,17 @@ h1 {
         width: 360px
     }
 }
+/* Десктоп: фикс ширина, всё остальное ок */
+@media (max-width: 1024px) {
+    .service-wrap .list{
+        column-count: 4;
+    }
+}
 
 @media (max-width: 992px) {
+    .service-wrap .list{
+        column-count: 3;
+    }
     .single {
         flex-direction: column;
     }
@@ -802,6 +820,9 @@ h1 {
 }
 
 @media (max-width: 768px) {
+    .service-wrap .list{
+        column-count: 1;
+    }
     .container {
         max-width: 700px;
     }
