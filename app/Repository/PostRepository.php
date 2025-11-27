@@ -86,8 +86,8 @@ class PostRepository
             if (strpos($search, 'nizkie') !== false) $posts->where('rost', '<', 170);
             if (strpos($search, '18-let') !== false) $posts->where('age', '=', 18);
             if (strpos($search, 'do-20-let') !== false) $posts->where('age', '<', 21);
-            if (strpos($search, 'molodye-prostitutki') !== false) $posts->where('age', '<', 26);
-            if (strpos($search, 'zrelye-prostitutki') !== false) $posts->whereBetween('age', [35, 45]);
+            if (strpos($search, 'molodye') !== false) $posts->where('age', '<', 26);
+            if (strpos($search, 'zrelye') !== false) $posts->whereBetween('age', [35, 45]);
 
             if (strpos($search, '18-20') !== false) $posts->whereBetween('age', [18, 20]);
             if (strpos($search, '21-25') !== false) $posts->whereBetween('age', [21, 25]);
