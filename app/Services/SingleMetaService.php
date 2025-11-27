@@ -28,7 +28,7 @@ class SingleMetaService
 
         if ($post->national) $national = $post->national->value;
 
-        $title = $price . $check. ' проститутка '  . $national . ' '.  $post->name . ' - ' . $cityInfo['city3'];
+        $title = $price . $national .  $check. ' проститутка ' .  $post->name . ' - ' . $cityInfo['city3'] . ' ID '. $post->id;
 
         return $title;
     }
