@@ -743,6 +743,10 @@ h1 {
     width: 100%;
     margin-top: 15px;
 }
+.map-wrap{
+    width: 100%;
+    margin-top: 15px;
+}
 
 .service-wrap .list{
     column-count: 5;

@@ -112,31 +112,31 @@
                 </div>
             </div>
 
-            @php
-
-                $x = '';
-                $y = '';
-
-                if ($metro = $post->metro->first()){
-                    $x = $metro->x;
-                    $y = $metro->y;
-                }
-
-            @endphp
-
-            @if($x)
-
-                <div class="map-wrap">
-                    <div class="about-heading">
-                        Мое местонахождения
-                    </div>
-
-                    <div data-x="{{$x}}" data-y="{{ $y }}" id="map" style="width: 100%; height: 400px;"></div>
-
-                </div>
-            @endif
-
         </div>
+        @php
+
+            $x = '';
+            $y = '';
+
+            if ($metro = $post->metro->first()){
+                $x = $metro->x;
+                $y = $metro->y;
+            }
+
+        @endphp
+
+        @if($x)
+
+            <div class="map-wrap">
+                <div class="about-heading">
+                    Мое местонахождения
+                </div>
+
+                <div data-x="{{$x}}" data-y="{{ $y }}" id="map" style="width: 100%; height: 400px;"></div>
+
+            </div>
+        @endif
+
         <div class="service-wrap">
             <div class="about-heading">
                 Услуги
