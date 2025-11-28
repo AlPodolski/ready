@@ -31,13 +31,13 @@
         </div>
         <div class="bottom-post-info-items d-flex">
             <div class="bottom-post-info-item">
-                Рост: 170
+                Рост: {{ $post->rost }}
             </div>
             <div class="bottom-post-info-item">
-                Грудь: 2
+                Грудь: {{ $post->breast }}
             </div>
             <div class="bottom-post-info-item">
-                Вес: 60
+                Вес: {{ $post->ves }}
             </div>
         </div>
         @if($metro = $post->metro->first())
