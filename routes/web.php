@@ -37,10 +37,7 @@ RateLimiter::for('phone-message', function ($request) {
 Route::post('/message/phone', [\App\Http\Controllers\MessagesController::class, 'phone'])
     ->middleware('throttle:phone-message');
 
-Route::get('/thumbnail/{size}/{filename}', 'ThumbnailController@make')
-    ->where('path', '.*');;
-
-Route::get('/thumbnail/{size}/{path}', [ThumbnailController::class, 'make'])
+Route::get('/resize/{size}/{path}', [ThumbnailController::class, 'make'])
     ->where('path', '.*'); // позволяет захватывать путь с подкаталогами
 
 Route::get('/pay/{id}', [\App\Http\Controllers\PayController::class, 'index']);

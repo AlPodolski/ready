@@ -11,8 +11,8 @@
 |
 */
 
-if (strpos($_SERVER['HTTP_HOST'], '7.local')){
-    define("SITE", '7.local');
+if (strpos($_SERVER['HTTP_HOST'], '8.local')){
+    define("SITE", '8.local');
     define("PATH", 'new');
 }
 else{

@@ -44,7 +44,9 @@
     @endif
 
     <h1>{{ $meta['h1'] }}</h1>
-    <div class="posts">
+
+    <div class="cards">
+
         @php
             $i = 0;
         @endphp
@@ -59,7 +61,7 @@
     @if($posts and $posts->total() > $posts->count())
 
         <div data-url="{{ str_replace('http', 'https', $posts->nextPageUrl()) }}" onclick="getMorePosts(this)"
-             class="more-posts">Показать еще
+             class="more-posts price">Показать еще
         </div>
 
         {!! str_replace('http', 'https', $posts->links('vendor.pagination.bootstrap-4')) !!}
