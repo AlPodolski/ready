@@ -71,3 +71,36 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const mapElement = document.getElementById("map");
+
+    // Если блока нет — ничего не делаем
+    if (!mapElement) return;
+
+    // Загружаем скрипт Яндекс.Карт
+    const script = document.createElement("script");
+    script.src = "https://api-maps.yandex.ru/2.1/?lang=ru_RU";
+    script.type = "text/javascript";
+    script.onload = function () {
+        const lng = parseFloat(mapElement.dataset.y);
+        const lat = parseFloat(mapElement.dataset.x);
+
+        if (isNaN(lat) || isNaN(lng)) return;
+
+        ymaps.ready(function () {
+            const myMap = new ymaps.Map("map", {
+                center: [lat, lng],
+                zoom: 12
+            });
+
+            const myPlacemark = new ymaps.Placemark([lat, lng], {
+                hintContent: 'Продавец'
+            });
+
+            myMap.geoObjects.add(myPlacemark);
+        });
+    };
+
+    document.head.appendChild(script);
+});

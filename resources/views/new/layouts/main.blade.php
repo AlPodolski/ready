@@ -69,6 +69,6 @@
             @yield('content')
         </div>
     </main>
-<script defer src="/js/script.js?v=1"></script>
+<script defer src="/js/script.js?v=2"></script>
 </body>
 </html>
