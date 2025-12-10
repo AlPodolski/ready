@@ -104,3 +104,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.head.appendChild(script);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const body = document.body;
+    const filterOpenBtn = document.querySelector('[data-open-filters]');
+    const filterPanel = document.querySelector('.filter-panel');
+    const filterOverlay = document.querySelector('.filter-overlay');
+    const filterCloseEls = document.querySelectorAll('[data-filter-close]');
+
+    function openFilters() {
+        body.classList.add('is-filter-open');
+        filterPanel.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeFilters() {
+        body.classList.remove('is-filter-open');
+        filterPanel.setAttribute('aria-hidden', 'true');
+    }
+
+    if (filterOpenBtn) {
+        filterOpenBtn.addEventListener('click', openFilters);
+    }
+
+    filterCloseEls.forEach(el => {
+        el.addEventListener('click', closeFilters);
+    });
+
+    // ESC для закрытия
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            closeFilters();
+        }
+    });
+
+    // Аккордеоны
+    document.querySelectorAll('.filter-acc__btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const acc = btn.closest('.filter-section');
+            const panel = acc.querySelector('.acc__panel');
+            const iconWrap = acc.querySelector('.menu__acc') || acc; // если будешь комбинировать классы
+
+            const isOpen = acc.classList.contains('open');
+            acc.classList.toggle('open', !isOpen);
+
+            if (isOpen) {
+                panel.setAttribute('hidden', 'hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            } else {
+                panel.removeAttribute('hidden');
+                btn.setAttribute('aria-expanded', 'true');
+            }
+        });
+    });
+});

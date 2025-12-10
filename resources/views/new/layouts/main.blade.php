@@ -18,7 +18,7 @@
         @yield('open-graph')
     @endif
     <link rel="stylesheet" href="/fonts/ubuntu/ubuntu.css?v=1">
-    <link rel="stylesheet" href="/css/style.css?v=1">
+    <link rel="stylesheet" href="/css/style.css?v=2">
 
     <meta property="og:title" content="@yield('title')"/>
     <meta property="og:description" content="@yield('des')"/>
@@ -75,6 +75,6 @@
             @yield('content')
         </div>
     </main>
-<script defer src="/js/script.js?v=2"></script>
+<script defer src="/js/script.js?v=3"></script>
 </body>
 </html>

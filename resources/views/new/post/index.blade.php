@@ -21,6 +21,146 @@
 
 @section('content')
 
+    <section class="filter-bar">
+        <div class="container">
+            <div class="filter-row">
+                <button class="filter-chip" type="button" data-open-filters>
+                    Фильтры
+                </button>
+
+                <button class="filter-chip" type="button">
+                    Цена
+                    <span class="chip-value">до 5000</span>
+                </button>
+
+                <button class="filter-chip" type="button">
+                    Район
+                </button>
+
+                <button class="filter-chip" type="button">
+                    Метро
+                </button>
+
+                <button class="filter-chip filter-chip--icon" type="button">
+                    <span class="dot"></span>
+                    Онлайн
+                </button>
+
+                <button class="filter-chip" type="button">
+                    Проверенные
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <div class="filter-overlay" data-filter-close></div>
+
+    <aside class="filter-panel" aria-hidden="true">
+        <div class="filter-panel__header">
+            <h2>Фильтры</h2>
+            <button class="filter-close" type="button" data-filter-close>&times;</button>
+        </div>
+
+        <form method="GET" action="">
+            <div class="filter-section">
+                <div class="filter-section__title">Цена</div>
+                <div class="filter-price">
+                    <input type="number" name="price_from" placeholder="от" class="price-input">
+                    <span class="dash">—</span>
+                    <input type="number" name="price_to" placeholder="до" class="price-input">
+                    <span class="currency">руб</span>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-section__title">Выезд / Формат</div>
+                <div class="filter-tags">
+                    <label class="tag">
+                        <input type="checkbox" name="na_vyezd" value="1">
+                        <span>Выезд</span>
+                    </label>
+                    <label class="tag">
+                        <input type="checkbox" name="s_video" value="1">
+                        <span>С видео</span>
+                    </label>
+                    <label class="tag">
+                        <input type="checkbox" name="proverennye" value="1">
+                        <span>Проверенные</span>
+                    </label>
+                </div>
+            </div>
+
+            {{-- Пример аккордеона по категориям --}}
+            <div class="filter-section">
+                <button class="acc__btn filter-acc__btn" type="button" aria-expanded="false">
+                    Район
+                    <span class="acc__icon"></span>
+                </button>
+                <div class="acc__panel" hidden>
+                    <div class="filter-checklist">
+                        @foreach($data['rayon'] ?? [] as $item)
+                            <label>
+                                <input type="checkbox" name="rayon[]" value="{{ $item->filter_url }}">
+                                <span>{{ $item->value }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <button class="acc__btn filter-acc__btn" type="button" aria-expanded="false">
+                    Метро
+                    <span class="acc__icon"></span>
+                </button>
+                <div class="acc__panel" hidden>
+                    <div class="filter-checklist">
+                        @foreach($data['metro'] ?? [] as $item)
+                            <label>
+                                <input type="checkbox" name="metro[]" value="{{ $item->filter_url }}">
+                                <span>{{ $item->value }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            {{-- Возраст --}}
+            <div class="filter-section">
+                <div class="filter-section__title">Возраст</div>
+                <div class="filter-range">
+                    <input type="number" name="age_from" placeholder="от" class="range-input">
+                    <span class="dash">—</span>
+                    <input type="number" name="age_to" placeholder="до" class="range-input">
+                </div>
+            </div>
+
+            {{-- Услуги --}}
+            <div class="filter-section">
+                <button class="acc__btn filter-acc__btn" type="button" aria-expanded="false">
+                    Услуги
+                    <span class="acc__icon"></span>
+                </button>
+                <div class="acc__panel" hidden>
+                    <div class="filter-checklist">
+                        @foreach($data['service'] ?? [] as $item)
+                            <label>
+                                <input type="checkbox" name="service[]" value="{{ $item->filter_url }}">
+                                <span>{{ $item->value }}</span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+
+            {{-- Низ панели --}}
+            <div class="filter-panel__footer">
+                <button type="submit" class="filter-submit">Показать</button>
+                <a href="{{ request()->url() }}" class="filter-reset">Сбросить</a>
+            </div>
+        </form>
+    </aside>
+
     @if (session('success'))
         <div class="col-12">
             <div class="alert alert-success">
