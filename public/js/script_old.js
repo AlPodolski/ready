@@ -1,92 +1,198 @@
-function ageSuffix(value) {
-    value = parseInt(value);
-    let mod10 = value % 10;
-    let mod100 = value % 100;
+// Тоггл меню
+const html = document.documentElement;
+const burger = document.querySelector('.burger-menu');
+const sideMenu = document.getElementById('side-menu');
+const overlay = document.querySelector('.menu-overlay');
+const close_filter = document.getElementById('filterClose');
 
-    if (mod10 === 1 && mod100 !== 11) {
-        return value + ' год';
-    } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
-        return value + ' года';
-    } else {
-        return value + ' лет';
-    }
+function openMenu(){
+    html.classList.add('is-menu-open');
+    burger.setAttribute('aria-expanded','true');
+    sideMenu.setAttribute('aria-hidden','false');
+    sideMenu.focus?.();
+}
+function closeMenu(){
+    html.classList.remove('is-menu-open');
+    burger.setAttribute('aria-expanded','false');
+    sideMenu.setAttribute('aria-hidden','true');
+}
+burger.addEventListener('click', ()=>{
+    const isOpen = html.classList.contains('is-menu-open');
+    isOpen ? closeMenu() : openMenu();
+});
+overlay.addEventListener('click', closeMenu);
+overlay.addEventListener('click', closeFilter);
+close_filter.addEventListener('click', closeFilter);
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') closeMenu();
+});
+
+const filterBtns = document.querySelectorAll('.filter-btn');
+const filterPanel = document.getElementById('filter');
+
+function openFilter(){
+    html.classList.add('is-filter-open');
+    filterPanel.setAttribute('aria-hidden','false');
+    filterPanel.focus?.();
+}
+function closeFilter(){
+    html.classList.remove('is-filter-open');
+    filterPanel.setAttribute('aria-hidden','true');
 }
 
-function createSlider(sliderId, fromId, toId, min, max, step, suffix = '', thousandSeparator = '', useCustomFormat = false) {
-    var slider = document.getElementById(sliderId);
-
-    var formatOptions = useCustomFormat ? {
-        to: function (value) {
-            return ageSuffix(value);
-        },
-        from: function (value) {
-            return Number(value.replace(/[^0-9]/g, ''));
-        }
-    } : wNumb({
-        decimals: 0,
-        thousand: thousandSeparator,
-        suffix: suffix
-    });
-
-    noUiSlider.create(slider, {
-        start: [
-            document.getElementById(fromId).getAttribute('data-value'),
-            document.getElementById(toId).getAttribute('data-value')
-        ],
-        connect: true,
-        step: step,
-        format: formatOptions,
-        range: {
-            'min': min,
-            'max': max
-        }
-    });
-
-    slider.noUiSlider.on('update', function (values) {
-        document.getElementById(fromId).value = values[0];
-        document.getElementById(toId).value = values[1];
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function () {
-    // Проверка наличия хотя бы одного блока слайдера
-    const ids = ['age', 'ves', 'grud', 'price'];
-    const hasSlider = ids.some(id => document.getElementById(id));
-
-    if (!hasSlider) return;
-
-    // Подключение CSS
-    const css = document.createElement('link');
-    css.rel = 'stylesheet';
-    css.href = '/css/nouislider.min.css';
-    document.head.prepend(css);
-
-    // Функция динамического подключения скриптов
-    function loadScript(src) {
-        return new Promise((resolve, reject) => {
-            const script = document.createElement('script');
-            script.src = src;
-            script.defer = true;
-            script.onload = resolve;
-            script.onerror = reject;
-            document.head.prepend(script);
-        });
-    }
-
-    // Загружаем оба скрипта и после инициализируем слайдеры
-    Promise.all([
-        loadScript('/js/nouislider.min.js'),
-        loadScript('/js/wNumb.min.js')
-    ]).then(() => {
-        // Вызываем createSlider только после полной загрузки скриптов
-        createSlider('age', 'age-from', 'age-to', 18, 80, 1, '', '', true);
-        createSlider('ves', 'ves-from', 'ves-to', 40, 100, 1, ' кг');
-        createSlider('grud', 'grud-from', 'grud-to', 0, 8, 1, ' размер');
-        createSlider('price', 'price-from', 'price-to', 1500, 50000, 100, ' ₽', ' ');
-    }).catch(err => {
-        console.error('Ошибка при загрузке скриптов:', err);
+// Открытие фильтра по клику на кнопку(ы)
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        const isOpen = html.classList.contains('is-filter-open');
+        isOpen ? closeFilter() : openFilter();
     });
 });
+
+// Закрытие по Esc
+document.addEventListener('keydown', (e)=>{
+    if(e.key === 'Escape') {
+        closeFilter();
+        closeMenu(); // на случай если оба открыты
+    }
+});
+
+// Аккордеоны (без <details>)
+document.querySelectorAll('.acc__btn').forEach((btn)=>{
+    const panel = btn.nextElementSibling;
+    btn.addEventListener('click', ()=>{
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        // сворачиваем все остальные (аккордеон-режим)
+        document.querySelectorAll('.acc__btn[aria-expanded="true"]').forEach(b=>{
+            if(b!==btn){ b.setAttribute('aria-expanded','false'); b.nextElementSibling.hidden = true; }
+        });
+        btn.setAttribute('aria-expanded', String(!expanded));
+        panel.hidden = expanded;
+    });
+});
+
+function call(object) {
+    const id = object.getAttribute('data-id');
+    const city = object.getAttribute('data-city');
+    const phone = object.getAttribute('data-phone');
+
+    if (phone) {
+        window.location.href = 'tel:+' + phone;
+        return;
+    }
+
+    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+    fetch('/phone', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRF-TOKEN': token
+        },
+        body: `id=${encodeURIComponent(id)}&city=${encodeURIComponent(city)}`,
+        cache: 'no-cache'
+    })
+        .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            return response.text();
+        })
+        .then(data => {
+            if (data) {
+                const formatted = formatPhone(data);
+                object.textContent = formatted;
+                object.setAttribute('data-phone', data);
+                window.location.href = 'tel:+' + data;
+            } else {
+                console.warn('Пустой ответ от сервера');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка запроса:', error);
+        });
+}
+
+function formatPhone(phone) {
+    // Оставляем только цифры
+    let digits = phone.replace(/\D/g, '');
+
+    // Приводим к формату +7
+    if (digits.startsWith('8')) {
+        digits = '7' + digits.slice(1);
+    }
+    if (!digits.startsWith('7')) {
+        digits = '7' + digits;
+    }
+
+    // Форматируем красиво
+    if (digits.length === 11) {
+        return digits.replace(/(\d)(\d{3})(\d{3})(\d{2})(\d{2})/, '+$1 ($2) $3-$4-$5');
+    } else if (digits.length === 10) {
+        return digits.replace(/(\d{3})(\d{3})(\d{2})(\d{2})/, '+7 ($1) $2-$3-$4');
+    }
+
+    // Если длина не совпала — просто возвращаем как есть
+    return '+' + digits;
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const targets = document.querySelectorAll(".more-posts");
+    if (!targets.length) return;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // передаём конкретный блок, который пересёк видимую область
+                getMorePosts(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.1 // срабатывает при 10% видимости блока
+    });
+
+    targets.forEach(el => observer.observe(el));
+});
+
+function getMorePosts(button) {
+    const url = button.getAttribute('data-url');
+    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': token
+        },
+        credentials: 'same-origin', // сохраняет куки
+    })
+        .then(response => response.text())
+        .then(text => {
+            let data;
+
+            try {
+                data = JSON.parse(text);
+            } catch (e) {
+                console.error('Ошибка парсинга JSON:', e);
+                return;
+            }
+
+            if (data) {
+                window.history.pushState('', document.title, url);
+
+                if (data.posts) {
+                    document.querySelector('.posts').insertAdjacentHTML('beforeend', data.posts);
+                }
+
+                if (data.next_page) {
+                    button.setAttribute('data-url', data.next_page);
+                } else {
+                    button.remove();
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка при запросе:', error);
+        });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
     const swiperBlock = document.querySelector(".mySwiper");
@@ -151,317 +257,92 @@ document.addEventListener("DOMContentLoaded", function () {
     document.head.appendChild(script);
 });
 
-const toggleButton = document.getElementById('filterToggle');
-const closeButton = document.getElementById('filterClose');
-const filterPanel = document.getElementById('filterPanel');
-
-toggleButton.addEventListener('click', () => {
-    filterPanel.classList.toggle('open');
-});
-
-closeButton.addEventListener('click', () => {
-    filterPanel.classList.remove('open');
-});
-
-
-const catalogToggle = document.getElementById('burger-menu');
-const catalogClose = document.getElementById('catalogClose');
-const catalogPanel = document.getElementById('catalogPanel');
-const overlay = document.getElementById('overlay');
-
-// Открыть каталог
-catalogToggle.addEventListener('click', () => {
-    catalogPanel.classList.add('open');
-    overlay.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
-});
-
-// Закрыть каталог
-function closeCatalog() {
-    catalogPanel.classList.remove('open');
-    overlay.classList.remove('active');
-    document.body.style.overflow = ''; // Возвращаем прокрутку страницы
-}
-
-catalogClose.addEventListener('click', closeCatalog);
-overlay.addEventListener('click', closeCatalog);
-
-// Аккордеон
-const accordionHeaders = document.querySelectorAll('.accordion-header');
-
-accordionHeaders.forEach(header => {
-    header.addEventListener('click', () => {
-        const item = header.parentElement;
-        const content = header.nextElementSibling;
-
-        item.classList.toggle('active');
-
-        if (item.classList.contains('active')) {
-            content.style.maxHeight = content.scrollHeight + 'px';
-        } else {
-            content.style.maxHeight = 0;
-        }
-
-        // Закрыть другие
-        accordionHeaders.forEach(otherHeader => {
-            if (otherHeader !== header) {
-                const otherItem = otherHeader.parentElement;
-                const otherContent = otherHeader.nextElementSibling;
-                otherItem.classList.remove('active');
-                otherContent.style.maxHeight = 0;
-            }
-        });
-    });
-});
-
-
 document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll('.star-rating').forEach(container => {
-        const inputName = container.dataset.inputName;
-        const hiddenInput = document.querySelector(`input[name="${inputName}"]`);
-        let currentRating = 0;
+    // Проверка наличия хотя бы одного блока слайдера
+    const ids = ['age', 'ves', 'grud', 'price'];
+    const hasSlider = ids.some(id => document.getElementById(id));
 
-        for (let i = 1; i <= 5; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.dataset.index = i;
+    if (!hasSlider) return;
 
-            star.innerHTML = `
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 17.27L18.18 21l-1.64-7.03L22
-                    9.24l-7.19-.61L12 2 9.19 8.63
-                    2 9.24l5.46 4.73L5.82 21z"/>
-                </svg>
-            `;
+    // Подключение CSS
+    const css = document.createElement('link');
+    css.rel = 'stylesheet';
+    css.href = '/css/nouislider.min.css';
+    document.head.prepend(css);
 
-            star.addEventListener('mousemove', (e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const isLeft = (e.clientX - rect.left) < rect.width / 2;
-                updateStars(container, i - 1 + (isLeft ? 0.5 : 1));
-            });
+    // Функция динамического подключения скриптов
+    function loadScript(src) {
+        return new Promise((resolve, reject) => {
+            const script = document.createElement('script');
+            script.src = src;
+            script.defer = true;
+            script.onload = resolve;
+            script.onerror = reject;
+            document.head.prepend(script);
+        });
+    }
 
-            star.addEventListener('mouseleave', () => {
-                updateStars(container, currentRating);
-            });
-
-            star.addEventListener('click', (e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                const isLeft = (e.clientX - rect.left) < rect.width / 2;
-                currentRating = (i - 1 + (isLeft ? 0.5 : 1)) * 2;
-                hiddenInput.value = currentRating;
-            });
-
-            container.appendChild(star);
-        }
-
-        function updateStars(container, value) {
-            const stars = container.querySelectorAll('.star');
-            stars.forEach((star, i) => {
-                star.classList.remove('full', 'half');
-                const starValue = i + 1;
-                if (value >= starValue) {
-                    star.classList.add('full');
-                } else if (value >= starValue - 0.5) {
-                    star.classList.add('half');
-                }
-            });
-        }
+    // Загружаем оба скрипта и после инициализируем слайдеры
+    Promise.all([
+        loadScript('/js/nouislider.min.js'),
+        loadScript('/js/wNumb.min.js')
+    ]).then(() => {
+        // Вызываем createSlider только после полной загрузки скриптов
+        createSlider('age', 'age-from', 'age-to', 18, 80, 1, '', '', true);
+        createSlider('ves', 'ves-from', 'ves-to', 40, 100, 1, ' кг');
+        createSlider('grud', 'grud-from', 'grud-to', 0, 8, 1, ' размер');
+        createSlider('price', 'price-from', 'price-to', 1500, 50000, 100, ' ₽', ' ');
+    }).catch(err => {
+        console.error('Ошибка при загрузке скриптов:', err);
     });
 });
 
-function getMorePosts(button) {
-    const url = button.getAttribute('data-url');
-    const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+function createSlider(sliderId, fromId, toId, min, max, step, suffix = '', thousandSeparator = '', useCustomFormat = false) {
+    var slider = document.getElementById(sliderId);
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': token
+    var formatOptions = useCustomFormat ? {
+        to: function (value) {
+            return ageSuffix(value);
         },
-        credentials: 'same-origin', // сохраняет куки
-    })
-        .then(response => response.text())
-        .then(text => {
-            let data;
-
-            try {
-                data = JSON.parse(text);
-            } catch (e) {
-                console.error('Ошибка парсинга JSON:', e);
-                return;
-            }
-
-            if (data) {
-                window.history.pushState('', document.title, url);
-
-                if (data.posts) {
-                    document.querySelector('.content').insertAdjacentHTML('beforeend', data.posts);
-                }
-
-                if (data.next_page) {
-                    button.setAttribute('data-url', data.next_page);
-                } else {
-                    button.remove();
-                }
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка при запросе:', error);
-        });
-}
-
-function getMorePostsSingle(button){
-    const token = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-    const url =  '/posts/more';
-
-    // Собираем ID уже показанных карточек
-    const shownIds = Array.from(document.querySelectorAll('.post-card[data-id]'))
-        .map(el => el.getAttribute('data-id'))
-        .filter(Boolean);
-
-    // UI: лоадер/блокировка
-    if (button){
-        button.classList.add('is-loading');
-        button.setAttribute('aria-busy', 'true');
-        button.style.pointerEvents = 'none';
-    }
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': token
-        },
-        credentials: 'same-origin',
-        body: JSON.stringify({
-            ids: shownIds // <— отправляем массив ID
-        })
-    })
-        .then(response => response.text())
-        .then((data) => {
-            // Обновляем историю (если есть что пушить)
-            if (data) {
-                document.querySelector('.more-posts-wrap')?.insertAdjacentHTML('beforeend', data);
-            }
-        })
-        .catch((err) => {
-            console.error('Ошибка при запросе:', err);
-            // можно показать сообщение/кнопку "повторить"
-            if (button) button.classList.add('is-error');
-        })
-        .finally(() => {
-            if (button){
-                button.classList.remove('is-loading');
-                button.removeAttribute('aria-busy');
-                button.style.pointerEvents = '';
-            }
-        });
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-    const target = document.querySelector('.more-posts-single');
-    if (!target) return;
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                getMorePostsSingle(entry.target);
-            }
-        });
-    }, {
-        root: null,
-        rootMargin: '150px', // за 150px до появления
-        threshold: 0
+        from: function (value) {
+            return Number(value.replace(/[^0-9]/g, ''));
+        }
+    } : wNumb({
+        decimals: 0,
+        thousand: thousandSeparator,
+        suffix: suffix
     });
 
-    observer.observe(target);
-});
+    noUiSlider.create(slider, {
+        start: [
+            document.getElementById(fromId).getAttribute('data-value'),
+            document.getElementById(toId).getAttribute('data-value')
+        ],
+        connect: true,
+        step: step,
+        format: formatOptions,
+        range: {
+            'min': min,
+            'max': max
+        }
+    });
 
-let lastScrollTop = window.scrollY;
-const header = document.querySelector('.bottom-header');
-
-function handleScroll() {
-    if (window.innerWidth >= 768) {
-        header.classList.remove('fixed'); // сброс фиксированного состояния на десктопе
-        return;
-    }
-
-    const currentScroll = window.scrollY;
-
-    if (currentScroll < lastScrollTop - 10) {
-        // Прокрутка вверх
-        header.classList.add('fixed');
-    } else if (currentScroll > lastScrollTop + 10) {
-        // Прокрутка вниз
-        header.classList.remove('fixed');
-    }
-
-    lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+    slider.noUiSlider.on('update', function (values) {
+        document.getElementById(fromId).value = values[0];
+        document.getElementById(toId).value = values[1];
+    });
 }
 
-window.addEventListener('scroll', handleScroll);
-window.addEventListener('resize', handleScroll); // обработка изменения ширины
+function ageSuffix(value) {
+    value = parseInt(value);
+    let mod10 = value % 10;
+    let mod100 = value % 100;
 
-const scrollBtn = document.getElementById('scrollToTop');
-
-window.addEventListener('scroll', () => {
-    scrollBtn.classList.toggle('show', window.scrollY > 900);
-});
-
-scrollBtn.addEventListener('click', () => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-});
-
-function selectSorting() {
-
-    var select = document.getElementById('sort');
-
-    if (select.value) {
-        document.cookie = 'sort=' + select.value;
+    if (mod10 === 1 && mod100 !== 11) {
+        return value + ' год';
+    } else if (mod10 >= 2 && mod10 <= 4 && (mod100 < 10 || mod100 >= 20)) {
+        return value + ' года';
+    } else {
+        return value + ' лет';
     }
-
-    window.location.href = location.pathname + location.search;
-
 }
-
-// Открытие
-document.querySelectorAll('[data-target]').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-target');
-        document.getElementById(id).style.display = 'block';
-    });
-});
-
-// Закрытие
-document.querySelectorAll('.close').forEach(btn => {
-    btn.addEventListener('click', () => {
-        btn.closest('.modal').style.display = 'none';
-    });
-});
-
-// Закрытие при клике вне окна
-window.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) {
-        e.target.style.display = 'none';
-    }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-    const targets = document.querySelectorAll(".more-posts");
-    if (!targets.length) return;
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                // передаём конкретный блок, который пересёк видимую область
-                getMorePosts(entry.target);
-            }
-        });
-    }, {
-        root: null,
-        threshold: 0.1 // срабатывает при 10% видимости блока
-    });
-
-    targets.forEach(el => observer.observe(el));
-});

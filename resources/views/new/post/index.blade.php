@@ -39,16 +39,16 @@
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
                         <img src="/storage/{{$post->avatar}}"
-                             title="Проститутка {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
-                             alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
+                             title=" {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
+                             alt="Фото  {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
                     </div>
 
                     @if($post->photo->first())
 
                         @foreach($post->photo as $item)
                             <div class="swiper-slide"><img src="/storage/{{ $item->file }}" loading="lazy"
-                                                           title="Проститутка {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
-                                                           alt="Фото проститутки {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
+                                                           title=" {{ $post->name }}в г. {{ $post->city->city }} цена {{ $post->price }}"
+                                                           alt="Фото  {{ $post->name }}, в г. {{ $post->city->city }} ID {{ $post->id }} руб">
                             </div>
                         @endforeach
 
@@ -66,32 +66,34 @@
             <div class="body-params">
                 <div class="body-param-tem d-flex">
                     <div class="body-param-name">Рост:</div>
-                    <div class="body-param-value">{{ $post->rost }}</div>
+                    <div class="body-param-value">{{ $post->rost }} см.</div>
                 </div>
                 <div class="body-param-tem d-flex">
                     <div class="body-param-name">Грудь:</div>
-                    <div class="body-param-value">{{ $post->breast }}</div>
+                    <div class="body-param-value">{{ $post->breast }} размер</div>
                 </div>
                 <div class="body-param-tem d-flex">
                     <div class="body-param-name">Вес:</div>
-                    <div class="body-param-value">{{ $post->ves }}</div>
+                    <div class="body-param-value">{{ $post->ves }} кг.</div>
                 </div>
             </div>
             <div class="single-price d-flex">
                 <div class="apart-price d-flex">
                     <div class="price-heading">
-                        Цена в апартаментах:
+                        Стоимость в аппартаментах:
                     </div>
                     <div class="price-item-wrap">
                         <div class="price-item"><span>1 час </span> <span>{{ $post->price }} руб</span></div>
-                        <div class="price-item"><span>2 часа</span> <span>{{ $post->two_hour_price }} руб</span></div>
-                        <div class="price-item"><span>Ночь  </span> <span>{{ $post->apartament_night_price }} руб</span>
+                        <div class="price-item"><span>2 часа</span> <span>{{ $post->two_hour_price ?? '-' }} руб</span></div>
+                        <div class="price-item"><span>сутки  </span> <span>{{ $post->apartament_night_price ?? '-' }} руб</span>
                         </div>
                     </div>
                 </div>
-                <div class="journey-price d-flex">
+            </div>
+            <div class="single-price d-flex">
+                <div class="apart-price d-flex">
                     <div class="price-heading">
-                        Цена на выезд:
+                        Стоимость на выезд:
                     </div>
                     <div class="price-item-wrap">
                         <div class="price-item"><span>1 час </span> <span>{{ $post->exit_1_hour_price }} руб</span>
@@ -99,10 +101,9 @@
                         <div class="price-item"><span>2 часа</span> <span>{{ $post->exit_2_hour_price }} руб</span>
                         </div>
                         <div class="price-item"><span>Ночь  </span> <span>{{ $post->exit_night_price }} руб</span></div>
+                        </div>
                     </div>
-
                 </div>
-            </div>
             <div class="about-post">
                 <div class="about-heading">
                     О себе
@@ -113,29 +114,6 @@
             </div>
 
         </div>
-        @php
-
-            $x = '';
-            $y = '';
-
-            if ($metro = $post->metro->first()){
-                $x = $metro->x;
-                $y = $metro->y;
-            }
-
-        @endphp
-
-        @if($x)
-
-            <div class="map-wrap">
-                <div class="about-heading">
-                    Мое местонахождения
-                </div>
-
-                <div data-x="{{$x}}" data-y="{{ $y }}" id="map" style="width: 100%; height: 400px;"></div>
-
-            </div>
-        @endif
 
         <div class="service-wrap">
             <div class="about-heading">
@@ -166,11 +144,35 @@
         </div>
     </div>
 
+    @php
+
+        $x = '';
+        $y = '';
+
+        if ($metro = $post->metro->first()){
+            $x = $metro->x;
+            $y = $metro->y;
+        }
+
+    @endphp
+
+    @if($x)
+
+        <div class="map-wrap">
+            <div class="about-heading">
+                Мое местонахождения
+            </div>
+
+            <div data-x="{{$x}}" data-y="{{ $y }}" id="map" style="width: 100%; height: 400px;"></div>
+
+        </div>
+    @endif
+
     <div class="about-heading">
         Вам может понравится:
     </div>
 
-    <div class="more-posts-wrap">
+    <div class="cards">
         @foreach($morePosts as $post)
             @include('new.include.item')
         @endforeach
