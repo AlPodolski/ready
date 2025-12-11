@@ -2,29 +2,7 @@
     <div class="container">
         <div class="filter-row">
             <button class="filter-chip" type="button" data-open-filters>
-                Фильтры
-            </button>
-
-            <button class="filter-chip" type="button">
-                Цена
-                <span class="chip-value">до 5000</span>
-            </button>
-
-            <button class="filter-chip" type="button">
-                Район
-            </button>
-
-            <button class="filter-chip" type="button">
-                Метро
-            </button>
-
-            <button class="filter-chip filter-chip--icon" type="button">
-                <span class="dot"></span>
-                Онлайн
-            </button>
-
-            <button class="filter-chip" type="button">
-                Проверенные
+                Показать фильтр
             </button>
         </div>
     </div>

@@ -38,6 +38,8 @@
         {!! $serviceMicro !!}
     @endif
 
+    @include('new.include.filter')
+
     @include('new.include.breadcrumb')
 
     @include('new.include.link')

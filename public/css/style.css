@@ -1053,7 +1053,6 @@ header {
     top: 60px; /* подгоняй под высоту header */
     z-index: 900;
     background: #ffffff;
-    border-bottom: 1px solid rgba(148, 163, 184, 0.25);
 }
 
 .filter-row {

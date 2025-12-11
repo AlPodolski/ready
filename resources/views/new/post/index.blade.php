@@ -29,6 +29,8 @@
         </div>
     @endif
 
+    @include('new.include.filter')
+
     @include('new.include.breadcrumb-sungle')
 
     <h1>{{ $meta['h1'] }}</h1>
