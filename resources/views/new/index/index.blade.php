@@ -43,6 +43,8 @@
         {!! $webSiteMicro !!}
     @endif
 
+    @include('new.include.filter')
+
     <h1>{{ $meta['h1'] }}</h1>
 
     <div class="cards">

@@ -202,29 +202,55 @@ class PostRepository
         }, $data);
 
         $posts = Post::where('age', '>=', $data['vozrast-ot'])
-            ->with(['metro', 'city', 'photo', 'checkPhoto'])
-            ->where(['publication_status' => Post::POST_ON_PUBLICATION])
             ->where('age', '<=', $data['vozrast-do'])
             ->where('ves', '>=', $data['ves-ot'])
             ->where('ves', '<=', $data['ves-do'])
             ->where('breast', '>=', $data['grud-ot'])
             ->where('breast', '<=', $data['grud-do'])
-            ->where('price', '>=', $data['cena-ot'])
-            ->where('price', '<=', $data['cena-do'])
-            ->where(['city_id' => $cityId]);
+            ->where('price', '>=', $data['price_from'])
+            ->where('price', '<=', $data['price_to'])
+            ->where(['city_id' => $cityId])
+            ->where(['publication_status' => Post::POST_ON_PUBLICATION])
+            ->with(['metro', 'city', 'photo', 'checkPhoto']);
 
         if (isset($data['rost-from'])) {
             $posts = $posts->where('rost', '>=', $data['rost-ot'])
                 ->where('rost', '<=', $data['rost-do']);
         }
-        if (isset($data['national_id']) and $data['national_id']) {
-            $posts = $posts->where('national_id', $data['national_id']);
+
+        if (!empty($data['metro'])) {
+            $posts = $posts->whereIn('id', function ($query) use ($data) {
+                $query->select('posts_id')
+                    ->from('post_metros')
+                    ->whereIn('metros_id', $data['metro']);
+            });
         }
 
-        if (isset($data['metro']) and $data['metro']) {
+        if (!empty($data['service'])) {
+            $posts = $posts->whereExists(function ($query) use ($data) {
+                $query->select(DB::raw(1))
+                    ->from('post_services')
+                    ->whereColumn('posts.id', 'post_services.posts_id')
+                    ->whereIn('post_services.service_id', $data['service']);
+            });
+        }
 
-            $posts = $posts->whereRaw(' id IN (select `posts_id` from `post_metros` where `metros_id` =  ?) ',
-                [$data['metro']]);
+        if (!empty($data['rayon'])) {
+            $posts = $posts->whereIn('rayon_id', $data['rayon']);
+        }
+        if (!empty($data['national'])) {
+            $posts = $posts->whereIn('national_id', $data['national']);
+        }
+
+        if (isset($data['na_vyezd']) and $data['na_vyezd']) {
+
+            $posts = $posts->whereRaw(' id IN (select `posts_id` from `post_places` where `place_id` =  1) ');
+
+        }
+
+        if (isset($data['s_video']) and $data['s_video']) {
+
+            $posts = $posts->where('video', '<>', '');;
 
         }
 
